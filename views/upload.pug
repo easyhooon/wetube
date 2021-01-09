@@ -1,0 +1,14 @@
+extends layouts/main
+
+block content
+    .form-container
+            form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
+                label(for="file") Video File
+                input(type="file", id="file", name="videoFile", required = true, accept="video/*")
+                input(type="text", placeholder="Title", name="title", required = true)
+                textarea(name="description", placeholder="Description", required = true)
+                input(type="submit", value="Upload Video")
+
+
+//- 우리가 file을 Upload하면 server에 있는 folder(video/)에 Upload
+//- postUpload라는 function은 해당 file에 접근 (file 방식이 아닌 URL 방식으로)
