@@ -1,23 +1,35 @@
 header.header
-    .header__column
-        a(href=routes.home)
-            i.fab.fa-youtube
-    .header__column
-        form(action=routes.search, method="get")
-            input(type="text", placeholder="Search by term...", name = "term")
-            
-    .header__column
-        ul
-            if !user.isAuthenticated  
-                li  
-                    a(href=routes.join) Join
-                li 
-                    a(href=routes.login) Log In
-            else
-                li
-                    a(href=`/videos${routes.upload}`) Upload
-                li
-                    a(href=routes.userDetail(user.id)) Profile 
-                li
-                    a(href=routes.logout) Log Out 
+    .header__wrapper
+        .header__column
+            a(href=routes.home)
+                i.fab.fa-youtube
+        .header__column
+            form(action=routes.search, method="get")
+                input(type="text", placeholder="Search by term...", name="term")
+        .header__column
+            ul
+                if !user.isAuthenticated
+                    li
+                        a(href=routes.join) Join
+                    li
+                        a(href=routes.login) Log In
+                else 
+                    li
+                        a(href=`/videos${routes.upload}`) Upload
+                    li
+                        a(href=routes.userDetail(user.id)) Profile
+                    li
+                        a(href=routes.logout) Log Out
+  
+//- user <- 로그인 되었는지 알려주는 변수 
+
+//- 헤더에는 모든 링크들이 들어감 
+//- header를 추가하고 클래스명은 header로 선언 -> header.header
+
+//- 헤더가 라우트 객체에 접근하도록 하려면 미들웨어를 사용해야함 
+
+//- method="get" -> url에 있는 값들을 보고 싶을때 사용 url의 search?이 뜨는 이유
+//- name = "term" 에 의해 search?() <- ()에 검색한 단어가 url에 뜸  
+
+//- userDetail() <- routes.js 를 보면 userDetail은 함수로 선언하였음 그래서 함수형임 
 

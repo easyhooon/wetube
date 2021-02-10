@@ -9,3 +9,6 @@ block content
             input(type="password", name="password2", placeholder="Verify Password", required=true)
             input(type="submit", value="Join Now")
         include partials/socialLogin
+
+//- 정보를 비밀로 유지해야하기 때문에 method는 get이 아닌 post
+//- required =true를 통해 정보를 아무것도 입력하지 않고 upload를 클릭해도 비디오의 상세페이지로 이동하는 것을 막음(보안관련)

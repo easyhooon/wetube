@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
 
-const app = express(); //app 변수를 선언해서 express를 실행
+const app = express(); //app 변수를 선언해서 express를 실행해서 담음 
 
 // app.get("/", function (req, res) {
 //   res.send("Hello World");
@@ -48,6 +48,10 @@ const handleProfile = (req, res) => res.send("You are on my profile");
 //   next();
 // };
 //middleware를 통해 유저의 로그인 여부를 체크할 수 도 있음, 로그를 작성 등등, 접속 거부된 ip 체크 등등 
+//middleware를 실행하려면 권한을 부여해야함(구글 크롬으로부터 요청을 계속 처리할 지에 대해, 그래서 그 요청이 handleHome으로 처리될지를 )
+//next라고 하는 key를 이용하여 권한을 부여 
+//next()로 인해 다음 middleware가 실행될 텐데 그것이 handlehome
+
 
 // app.get("/", betweenHome, handleHome); //유저의 home(/)요청과 handleHome 사이에 있음, handlehome이 마지막 층의 함수, 유저에게 무언가를 반환하는 함수
 //위와 같은 경우는 local middleware
@@ -62,8 +66,9 @@ app.use(bodyParser.json());
 //api요청에서 받은 body값을 파싱하는 역할을 수행 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(helmet());
+//보안관련 
 app.use(morgan("dev"))
-//모든 것을 기록 
+//모든 로그들을을 기록
 
 //global middleware
 
@@ -76,9 +81,11 @@ app.use(morgan("dev"))
 
 //create router
 // app.get("/", middleware, handleHome);
+//route 
 app.get("/", handleHome);
 //응답하나 해보는 것
-//request는 있지만(get request) 그에 대한 응답이 있어야 함 (뭔가 응답을 하게 만들어야 함, 응답이 없으면 무한 로딩 상테)
+//request는 있지만(get request) 그에 대한 응답이 있어야 함 (뭔가 응답을 하게 만들어야 함, 내가 만든 서볼 응답하거나, 에러를 응답하거나, ok라던가... 응답이 없으면 무한 로딩 상테)
+//서버가 하는 일은 HTML로 응답하는 것 
 
 app.get("/profile", handleProfile);
 
@@ -99,13 +106,13 @@ app.listen(PORT, handleListening);
 //기본 작동 방식
 //서버 생성 -> route 생성(app.get(~)) -> 그것에 응답 
 
-
-
-
 //http의 작동 방식(웹사이트가 작동하는 방식)
+//GET과 POST의 차이점
+
 // 웹사이트에 가면, url를 적을텐데, 브라우저가 GET method를 실행, 기본적으로 그렇게 브라우저가 페이지를 읽어옴 
 // 웹사이트에 로그인 하면 POST를 통해 하게 됨 웹사이트로 , 브라우저가 웹사이트에 정보를 전달, POST라고 불리는 method를 통해
 // -> 그러니까 GET request로는 정보를 전달할 수가 없음, 정보 전달은 POST request (서버에)
+//영상에 대한 커멘트를 달때 POST를 통해(정보를 전달하니깐)
 
 //babel -> 최신 문법으로 작성한 JS 코드를 웹 브라우저와의 호환을 위해 이전 버전의 문법 JS코드로 바꿔주는 프로그램 
 //"start": "babel-node index.js" -> 바벨이 코드를 바꿔주고 실행 
@@ -117,6 +124,7 @@ app.listen(PORT, handleListening);
 
 // get과 set의 차이점
 
+
 // get은 서버에서 데이터를 가져와서 보여줄때 사용..!
 // *데이터를 수정할 필요가 없는 자료(eg.게시판의 목록? 각각의 글 조회?)
 // post는 서버상의 데이터를 저장 이나 수정 할때 사용
@@ -126,3 +134,8 @@ app.listen(PORT, handleListening);
 // *보안에 신경을 쓰지 않아도 되는 자료
 // post는 서버에 무언가를 저장이나 수정과 같은 무언가를 "수행" 할때 사용
 // *개인정보 등 보안에 신경을 써야할곳에 사용
+
+//app.use() 와 app.get()의 차이점 
+// app.use('/index') 는 /index 로의 모든 요청에 대해서 동작합니다. 
+//즉 get 이나 post 등 어떤 HTTP method에도 작동을 합니다. 
+//그에 반해서 app.get('/index') 는 get 요청에 대해서만 동작하는 미들웨어입니다.

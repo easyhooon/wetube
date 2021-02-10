@@ -3,8 +3,9 @@ extends layouts/main
 block content
     .form-container
             form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
-                label(for="file") Video File
-                input(type="file", id="file", name="videoFile", required = true, accept="video/*")
+                div.fileUpload
+                    label(for="file") Video File
+                    input(type="file", id="file", name="videoFile", required=true, accept="video/*")
                 input(type="text", placeholder="Title", name="title", required = true)
                 textarea(name="description", placeholder="Description", required = true)
                 input(type="submit", value="Upload Video")
@@ -12,3 +13,4 @@ block content
 
 //- 우리가 file을 Upload하면 server에 있는 folder(video/)에 Upload
 //- postUpload라는 function은 해당 file에 접근 (file 방식이 아닌 URL 방식으로)
+//- required =true를 통해 정보를 아무것도 입력하지 않고 upload를 클릭해도 비디오의 상세페이지로 이동하는 것을 막음(보안관련)

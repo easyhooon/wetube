@@ -27,6 +27,7 @@ const VideoSchema = new mongoose.Schema({
 });
 
 const model = mongoose.model("Video", VideoSchema);
+//It tells Mongoose that the 'Video' model will have the shape of the VideoSchema
 export default model;
 
 //schema는 definition이라 생각 
@@ -38,3 +39,11 @@ export default model;
 //comment의 id만 넣음 (video와 연결 된 Commnet들의 Id가 저장됨 )
 //video의 ID를 원하기 때문에 ref를 사용 
 //모든 commnet ID들을 array로 video에 집어 넣을 것인가 혹은 Commnet로 연결 된 Video ID를 줄 것인가
+
+// Date.now() executes the function immediately, Date.now waits for the function to be called.
+
+//What is the "ObjectId" type for?
+// To tell Mongoose that here we are gonna save an ID of a different Model
+
+//What is the "Schema"?
+//Is an object that tells Mongoose the shape of the data that we will save
